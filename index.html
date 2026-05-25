@@ -179,9 +179,7 @@
   .vsl-placeholder {
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
-    background:
-      radial-gradient(60% 60% at 50% 40%, rgba(224,36,29,0.18) 0%, rgba(0,0,0,0) 70%),
-      repeating-linear-gradient(135deg, #0a0a0c 0 18px, #111114 18px 36px);
+    background: #000;
     color: var(--ink-dim);
     font-family: 'JetBrains Mono', ui-monospace, monospace;
     font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
@@ -460,13 +458,13 @@
   </div>
 
   <section class="hero">
-    <div class="kicker" style="background-color: rgb(0, 245, 212); color: rgb(0, 0, 0); width: 500px;">Oferta exclusiva — lote limitado</div>
-    <h1 class="headline" id="headline" style="width: 318px;">
-      <span id="hl-1" style="font-size: 35px;">DESCUBRA COMO COMPRAR </span><br/>
-      <em id="hl-2" style="width: 318px;">a preço de custo</em><br/>
+    <div class="kicker" style="background-color: rgb(0, 245, 212); color: rgb(0, 0, 0); max-width: min(500px, 100%);">Oferta exclusiva — lote limitado</div>
+    <h1 class="headline" id="headline" style="max-width: min(420px, 100%);">
+      <span id="hl-1">DESCUBRA COMO COMPRAR </span><br/>
+      <em id="hl-2">a preço de custo</em><br/>
       <span id="hl-3">esse lote</span>
     </h1>
-    <p class="sub" style="width: 500px;">O melhor Limpa Piso com  menor preço da História. Assista o vídeo e entenda o motivo</p>
+    <p class="sub" style="max-width: min(500px, 100%);">O melhor Limpa Piso com  menor preço da História. Assista o vídeo e entenda o motivo</p>
   </section>
 
   <section class="stage">
@@ -607,10 +605,12 @@
     // Hide placeholder once a real video element appears
     const vsl = document.getElementById('vsl');
     const obs = new MutationObserver(() => {
+      const player = vsl.querySelector('vturb-smartplayer');
+      if (player && player.children.length > 0) { vsl.classList.add('is-ready'); obs.disconnect(); return; }
       if (vsl.querySelector('video, iframe')) { vsl.classList.add('is-ready'); obs.disconnect(); }
     });
     obs.observe(vsl, { childList: true, subtree: true });
-    setTimeout(() => obs.disconnect(), 30000);
+    setTimeout(() => { vsl.classList.add('is-ready'); obs.disconnect(); }, 4000);
   </script>
 
   <!-- ===== CTA scroll/click ===== -->
